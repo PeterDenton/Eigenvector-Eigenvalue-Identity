@@ -2,15 +2,29 @@
 
 This code generates a random Hermitian matrix of dimension n and then calculates the norm squared of the elements of the normed eigenvectors, |v<sub>i,j</sub>|<sup>2</sup>.
 It then verifies that it is equivalent to numpy.
-To use this code simply run the file as is to numerically verify the formula, or import it into your own code as:
-
+To use this code simply run the file as is to numerically verify the formula:
+```
+python E2.py
+0.08307505701632452
+0.08307505701632453
+[[ True  True  True  True  True  True  True  True]
+ [ True  True  True  True  True  True  True  True]
+ [ True  True  True  True  True  True  True  True]
+ [ True  True  True  True  True  True  True  True]
+ [ True  True  True  True  True  True  True  True]
+ [ True  True  True  True  True  True  True  True]
+ [ True  True  True  True  True  True  True  True]
+ [ True  True  True  True  True  True  True  True]]
+```
+or import it into your own code as:
 ```
 import E2
 E2.vijsq(H, i, j)
 ```
 returns the norm square of the j<sup>th</sup> element of the i<sup>th</sup> eigenvector where H is a Hermitian matrix of numpy's matrix class, and i and j are indices 0 &le; i,j &le; n.
 
-The new formula is
+The new formula is:
+
 ![E2 Equation](./equation.png)
 
 ## References
