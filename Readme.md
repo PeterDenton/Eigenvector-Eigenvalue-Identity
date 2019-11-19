@@ -21,8 +21,9 @@ or import it into your own code as:
 import E2
 E2.vijsq(H, i, j)
 ```
-returns the norm square of the j<sup>th</sup> element of the i<sup>th</sup> eigenvector where H is a Hermitian matrix of numpy's matrix class, and i and j are indices 0 &le; i,j &le; n.
+which returns the norm square of the j<sup>th</sup> element of the i<sup>th</sup> eigenvector where H is a Hermitian matrix of numpy's matrix class, and i and j are indices 0 &le; i,j &le; n.
 
+## Formula
 The new formula is:
 
 ![E2 Equation](./equation.png)
