@@ -1,7 +1,7 @@
 # Eigenvector-Eigenvalue Identity Code
 
 This code generates a random Hermitian matrix of dimension n and then calculates the norm squared of the elements of the normed eigenvectors, |v<sub>i,j</sub>|<sup>2</sup>.
-It then verifies that it is equivalent to numpy.
+It then verifies that the result is equivalent to that calculated with numpy.
 To use this code simply run the file as is to numerically verify the formula:
 ```
 python E2.py
@@ -16,7 +16,9 @@ python E2.py
  [ True  True  True  True  True  True  True  True]
  [ True  True  True  True  True  True  True  True]]
 ```
-or import it into your own code as:
+where the first two numbers are |v<sub>0,1</sub>|<sup>2</sup> calculated with the new formula and numpy and the array is the comparison of each element of each eigenvector.
+
+Alternatively, import it into your own code as:
 ```
 import E2
 E2.vijsq(H, i, j)
