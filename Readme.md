@@ -34,4 +34,4 @@ The new formula is:
 For further references see [arXiv:1908.03795](https://arxiv.org/abs/1908.03795).
 We first discovered this in the context of neutrino oscillations in matter in [arXiv:1907.02534](https://arxiv.org/abs/1907.02534).
 We believe that the first instance of anything like this expression appeared in Karl Löwner. Über monotone Matrixfunktionen. Math. Z., 38(1):177–216, 1934.
-The first instance of this expression seems to have appeared in R. C. Thompson. Principal submatrices of normal and Hermitian matrices. Illinois J. Math., 10:296–308, 1966.
+The first instance of this expression seems to have appeared in R. C. Thompson. Principal submatrices of normal and Hermitian matrices. Illinois J. Math., 10:296–308, 1966. A related expression appeared in 1834 by Jacobi.
