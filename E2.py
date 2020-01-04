@@ -1,4 +1,5 @@
 import numpy as np
+from functools import reduce
 
 # Calculate the norm square of the jth element of the ith eigenvector using the alternate algorithm
 # H is a square np.matrix
