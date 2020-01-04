@@ -14,14 +14,31 @@ def vijsq(H, i, j):
 	minor_eigenvalues = np.linalg.eigvalsh(Mj)
 	# Calculate the numerator
 	numerator = 1.
-	for k in xrange(n - 1):
+	for k in range(n - 1):
 		numerator *= eigenvalues[i] - minor_eigenvalues[k]
 	# Calculate the denominator
 	denominator = 1.
-	for k in xrange(n):
+	for k in range(n):
 		if k == i: continue
 		denominator *= eigenvalues[i] - eigenvalues[k]
 	return numerator / denominator
+#Calculate the norm square with performance improvements
+def vijsqperf(H, i, j):
+	# Get the size of the matrix
+	n = H.shape[0]
+	# Get the eigenvalues of the matrix using numpy
+	eigenvalues = np.linalg.eigvalsh(H)
+	# Determine the jth minor
+	Mj = np.delete(np.delete(H, j, 0), j, 1)
+	# Get the eigenvalues of the minor
+	minor_eigenvalues = np.linalg.eigvalsh(Mj)
+	# Calculate the numerator
+	eigenvaluei = eigenvalues[i]
+	numerator = reduce( lambda x, y: x*y, [eigenvaluei - minor_eigenvalues[k] for k in range(n-1)])
+	# Calculate the denominator
+	denominator = reduce( lambda x, y: x*y, [eigenvaluei - eigenvalues[k] for k in range(n) if k!= i])
+	return numerator / denominator
+
 
 # Calculate the norm square of the jth element of the ith eigenvector using numpy's built in eigenvector calculator
 # H is a square np.matrix
@@ -33,17 +50,21 @@ def vijsq_np(H, i, j):
 
 # Prints true for each element that agrees between the E2 method and the method built into numpy
 # H is a square np.matrix
-def compare(H):
+# mode determines comparison with normal or improved function
+def compare(H, mode = 0):
 	# Get the size of the matrix
 	n = H.shape[0]
 	# The tolerance for comparison purposes
 	tol = 1e-12
 	# The matrix that will be returned
 	res = np.empty((n, n), dtype = np.bool)
-	for i in xrange(n):
-		for j in xrange(n):
+	for i in range(n):
+		for j in range(n):
 			# Fill in the matrix with True or False depending on if they agree or not
-			res[i, j] = abs(vijsq(H, i, j) - vijsq_np(H, i, j)) < tol
+			if mode != 0:
+				res[i, j] = abs(vijsqperf(H, i, j) - vijsq_np(H, i, j)) < tol
+			else:
+				res[i, j] = abs(vijsq(H, i, j) - vijsq_np(H, i, j)) < tol
 	return res
 
 if __name__ == "__main__":
