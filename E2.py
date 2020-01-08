@@ -80,6 +80,35 @@ def eig_sq_perf(H):
     return res
 
 
+# Calculate the norm square of all the elements of all the eigenvectors using the alternate algorithm
+# H is a square np.matrix
+def eig_sq_vect(H):
+    # Get size of the matrix
+    n = H.shape[0]
+
+    # Get eigenvalues of the matrix
+    eigvals = np.linalg.eigvalsh(H)
+
+    # Create a matrix of all the minors minors and a matrix of eigenvalues as required in the algorithm
+    minors = np.empty((n, n - 1, n - 1), dtype=H.dtype)
+    eig_matrix = np.empty((n, n - 1))
+    for i in range(n):
+        minors[i] = np.delete(np.delete(H, i, 0), i, 1)
+        eig_matrix[i] = np.delete(eigvals, i)
+
+    # Get eigenvalues of all the minors
+    minor_eigvals = np.linalg.eigvalsh(minors)
+
+    # Calculate the numerators and the denominators
+    numerator = np.empty((n, n))
+    denominator = np.empty((n,))
+    for i in range(n):
+        numerator[i] = np.prod(eigvals[i] - minor_eigvals, axis=1)
+        denominator[i] = np.prod(eigvals[i] - eig_matrix[i])
+
+    return np.divide(numerator.T, denominator.reshape((1, n)))
+
+
 # Calculate the norm square of all the elements of all the eigenvectors using numpy's built in eigenvector calculator
 # H is a square np.matrix
 def eig_sq_np(H):
@@ -100,6 +129,10 @@ def compare(H, mode=0):
         res = eig_sq(H)
     elif mode == 1:
         res = eig_sq_perf(H)
+    elif mode == 2:
+        res = eig_sq_vect(H)
+    else:
+        raise IndexError
 
     # Return the comparison matrix
     return abs(res - eig_sq_np(H)) < tol
@@ -118,6 +151,8 @@ if __name__ == "__main__":
     print("basic implementation: ", basic[0, 1])
     perf = eig_sq_perf(H)
     print("performant implementation: ", perf[0, 1])
+    vect = eig_sq_vect(H)
+    print("vectorized implementation implementation: ", vect[0, 1])
 
     print("\n--- using numpy ---")
     nump = eig_sq_np(H)
